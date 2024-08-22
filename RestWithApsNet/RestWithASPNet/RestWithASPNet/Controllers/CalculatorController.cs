@@ -30,8 +30,8 @@ namespace RestWithASPNet.Controllers
         {
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
-                var sum = ConvertToDecimal(firstNumber) - ConvertToDecimal(secondNumber);
-                return Ok(sum.ToString());
+                var sub = ConvertToDecimal(firstNumber) - ConvertToDecimal(secondNumber);
+                return Ok(sub.ToString());
 
             }
             return BadRequest("Invalid Input");
@@ -42,8 +42,8 @@ namespace RestWithASPNet.Controllers
         {
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
-                var sum = ConvertToDecimal(firstNumber) * ConvertToDecimal(secondNumber);
-                return Ok(sum.ToString());
+                var mult = ConvertToDecimal(firstNumber) * ConvertToDecimal(secondNumber);
+                return Ok(mult.ToString());
 
             }
             return BadRequest("Invalid Input");
@@ -54,8 +54,21 @@ namespace RestWithASPNet.Controllers
         {
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
-                var sum = ConvertToDecimal(firstNumber) * ConvertToDecimal(secondNumber);
-                return Ok(sum.ToString());
+                var div = (ConvertToDecimal(firstNumber) / ConvertToDecimal(secondNumber)) / 2;
+                return Ok(div.ToString());
+
+            }
+            return BadRequest("Invalid Input");
+        }
+
+        [HttpGet("sqrt/{Number}")]
+        public IActionResult GetSqrt(string Number)
+        {
+            if (IsNumeric(Number))
+            {
+                var valor = ConvertToDecimal(Number);
+                var sqrt = Math.Sqrt(Convert.ToDouble(valor));
+                return Ok(sqrt.ToString());
 
             }
             return BadRequest("Invalid Input");
