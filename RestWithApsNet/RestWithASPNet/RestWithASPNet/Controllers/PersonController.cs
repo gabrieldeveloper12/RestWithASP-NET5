@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using RestWithASPNet.Model;
 using RestWithASPNet.Business;
+using RestWithASPNet.Data.VO;
+using RestWithASPNet.HyperMedia.Filters;
 
 namespace RestWithASPNet.Controllers
 {
@@ -18,12 +19,14 @@ namespace RestWithASPNet.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get()
         {
             return Ok(_personService.FindAll());
         } 
         
         [HttpGet("{id:long}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(long id)
         {
             var person = _personService.FindById(id);
@@ -34,7 +37,8 @@ namespace RestWithASPNet.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Person person)
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Post([FromBody] PersonVO person)
         {
             if (person == null)
                 return BadRequest();
@@ -43,7 +47,8 @@ namespace RestWithASPNet.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Person person)
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Put([FromBody] PersonVO person)
         {
             if (person == null)
                 return BadRequest();
